@@ -15,11 +15,11 @@
             $(document).ready(function () {
                 $('.space').on ('click', function() { //функция при нажатии на ячейку
                     var clickId = this.id; // получаем ид ячейки
-                    var val=clickId.valueOf();//значение ячейки
-                    var radio=findSelection("group1");// значение чек бокса
+                    var val = clickId.valueOf();//значение ячейки
+                    var radio = findSelection("group1");// значение чек бокса
                     ('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);// Проверка данных
                     alert("Hoora1");// тестовый
-                    if (!(val=="X")&&!(val=="O")){// блок если уже выставлен х или о
+                    if (!(val == "X")&&!(val == "O")){// блок если уже выставлен х или о
                         //ajaxComputerTurnRequest(filmName); // будет реализована функция делающая ПОСТ
                     alert("Hoora2");
                     };
@@ -60,16 +60,16 @@
                         <caption>TIC-TAC-TOE</caption>
 
                         <tr><td class="space" id="1x1" align="center">${board[0][0]}</td>
-                            <td class="space" id="1x2">${board[0][1]}</td>
-                            <td class="space" id="1x3">${board[0][2]}</td></tr>
+                            <td class="space" id="1x2" align="center">${board[0][1]}</td>
+                            <td class="space" id="1x3" align="center">${board[0][2]}</td></tr>
 
-                        <tr><td class="space" id="2x1">${board[1][0]}</td>
-                            <td class="space" id="2x2">${board[1][1]}</td>
-                            <td class="space" id="2x3">${board[1][2]}</td></tr>
+                        <tr><td class="space" id="2x1" align="center">${board[1][0]}</td>
+                            <td class="space" id="2x2" align="center">${board[1][1]}</td>
+                            <td class="space" id="2x3" align="center">${board[1][2]}</td></tr>
 
-                        <tr><td class="space" id="3x1" >${board[2][0]}</td>
-                            <td class="space" id="3x2">${board[2][1]}</td>
-                            <td class="space" id="3x3">${board[2][2]}</td></tr>
+                        <tr><td class="space" id="3x1" align="center">${board[2][0]}</td>
+                            <td class="space" id="3x2" align="center">${board[2][1]}</td>
+                            <td class="space" id="3x3" align="center">${board[2][2]}</td></tr>
 
                 </table>
                 <div>
