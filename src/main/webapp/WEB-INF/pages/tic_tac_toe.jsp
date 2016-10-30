@@ -13,20 +13,20 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
         <script>
             $(document).ready(function () {
-                $('.space').on ('click', function() {
-                    var clickId = this.id;
-                    var val=clickId.valueOf();
-                    var radio=findSelection("group1");
-                    alert("Hoora1");
-                    if (!(val=="X")&&!(val=="O")){
-                        //ajaxComputerTurnRequest(filmName);
-                        ('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);
+                $('.space').on ('click', function() { //функция при нажатии на ячейку
+                    var clickId = this.id; // получаем ид ячейки
+                    var val=clickId.valueOf();//значение ячейки
+                    var radio=findSelection("group1");// значение чек бокса
+                    ('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);// Проверка данных
+                    alert("Hoora1");// тестовый
+                    if (!(val=="X")&&!(val=="O")){// блок если уже выставлен х или о
+                        //ajaxComputerTurnRequest(filmName); // будет реализована функция делающая ПОСТ
                     alert("Hoora2");
                     };
 
                 });
              });
-            function ajaxFilmRequest(term){
+            /*function ajaxFilmRequest(term){ TODO функционал
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost:8080/loading',
@@ -37,9 +37,10 @@
                 }
             else
                 {
-                    alert("Нет такого фильма:(")
+                    alert(":(")
                 }
             }
+            */
             //
 
 
