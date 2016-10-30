@@ -39,7 +39,19 @@ public class ListenerController {
         return "login";
     }
 
+  /*  @RequestMapping(method = RequestMethod.POST)
+    public String enemyTurn(@RequestParam String field,@RequestParam char ticOrTac, ModelMap model){
+        if (ticOrTac=='x'){
 
+        }
+        else if (ticOrTac=='o'){
+
+        }
+        else
+
+        return "tic_tac_toe"; //TODO not new page?
+    }
+*/
     /*@RequestMapping(method = RequestMethod.GET)
     public String printWelcome(@CookieValue(value="tabl_tic_tac_toe", defaultValue =  {"dfs","dfs"}) String [] tabl, ModelMap model) {
         return "tic_tac_toe";

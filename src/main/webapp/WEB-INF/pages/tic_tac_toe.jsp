@@ -13,7 +13,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
         <script>
             $(document).ready(function () {
-                $('.space').on ('click', function() { //функция при нажатии на ячейку
+                $(document).on('click','.space', function() { //функция при нажатии на ячейку
                     var clickId = this.id; // получаем ид ячейки
                     var val = clickId.valueOf();//значение ячейки
                     var radio = findSelection("group1");// значение чек бокса
@@ -54,8 +54,9 @@
                 Hello ${Nick}
                 <div id="XorO">
                 </div>
+                <font size="4">
                 <table border="4" bordercolor="#000000" cellspacing="0" cellpadding="0"
-                width="300" height="300">
+                width="300" height="300" >
 
                         <caption>TIC-TAC-TOE</caption>
 
@@ -72,10 +73,11 @@
                             <td class="space" id="3x3" align="center">${board[2][2]}</td></tr>
 
                 </table>
+</font>
                 <div>
                     Choose your side:<br>
                     <input type="radio" name="group1" value="X"> X<br>
-                    <input type="radio" name="group1" value="O" checked> O
+                    <input type="radio" name="group1" value="O"> O
                 </div>
                 </body>
 
