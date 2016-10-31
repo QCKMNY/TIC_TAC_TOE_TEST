@@ -17,7 +17,7 @@
                 $('#play').click(function(){
                     var Nick = $("#PlayerNick").val();
                     if(Nick.length > 0){
-                        var url = "http://localhost:8080/loading?Nick="+Nick;
+                        var url = "http://localhost:8081/loading?Nick="+Nick;
                         $(location).attr('href',url);
                     }
                     else{

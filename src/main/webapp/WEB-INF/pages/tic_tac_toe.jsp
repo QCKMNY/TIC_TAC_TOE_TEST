@@ -10,14 +10,15 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
         <script>
             $(document).ready(function () {
                 $(document).on('click','.space', function() { //функция при нажатии на ячейку
-                    var clickId = this.id; // получаем ид ячейки
-                    var val = clickId.valueOf();//значение ячейки
-                    var radio = findSelection("group1");// значение чек бокса
-                    ('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);// Проверка данных
+                    //var clickId = this.id; // получаем ид ячейки
+                    //var val = clickId.valueOf();//значение ячейки
+                    //var radio = findSelection("group1");// значение чек бокса
+                    //var radio ='x';
+                    //('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);// Проверка данных
                     alert("Hoora1");// тестовый
                     if (!(val == "X")&&!(val == "O")){// блок если уже выставлен х или о
                         //ajaxComputerTurnRequest(filmName); // будет реализована функция делающая ПОСТ
@@ -29,7 +30,7 @@
             /*function ajaxFilmRequest(term){ TODO функционал
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:8080/loading',
+                    url: 'http://localhost:8081/loading',
                     data: {'field': clickId,'type':radio},
                     success: function(data){
 
