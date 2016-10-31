@@ -14,26 +14,33 @@ import org.springframework.web.bind.annotation.RequestParam;
  * method printWelcome open the user validation form
  */
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value = "/")
 public class ListenerController {
     @Autowired
     tabl tablica;//TODO bean tabl interface?
 
 
-    @RequestMapping(value="/loading", method = RequestMethod.GET)
-    public String getname(@RequestParam String Nick, ModelMap model) {
-        char [][] tablica_play=tablica.Players.get(Nick);// TODO COOKIE
-        if (tablica_play ==null){ // проверяет есть ли такой пользователь, если нет-добавляет
+    @RequestMapping(value = "/loading", method = RequestMethod.GET)
+    public String getName(@RequestParam String Nick, ModelMap model) {
+        char[][] playBoard = tablica.Players.get(Nick);// TODO COOKIE
+        if (playBoard == null) { // проверяет есть ли такой пользователь, если нет-добавляет
             tablica.addPlayer(Nick);
-            tablica_play=tablica.Players.get(Nick);
+            playBoard = tablica.Players.get(Nick);
         }
-        model.addAttribute("board",tablica_play);
+        for (int i=0;i<3;i++){
+            for (int j=0;j<3;j++){
+                //if (playBoard[i][j] == null]){
+
+                //}
+            }
+        }
+        model.addAttribute("board", playBoard);
         model.addAttribute("Nick", Nick);
         return "tic_tac_toe";
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome( ModelMap model) {
+    public String printWelcome(ModelMap model) {
         //TODO check Cookie- else-> return"tic_tac_toe"
         return "login";
     }
