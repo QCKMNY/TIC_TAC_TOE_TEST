@@ -10,25 +10,28 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <script>
         $(document).ready(function () {
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
-                //var clickId = this.id; // получаем ид ячейки
-                //var val = clickId.valueOf();//значение ячейки
+                var clickID = this.id; // получаем ид ячейки
+                var val = $(this).text();//значение ячейки
                 //var radio = findSelection("group1");// значение чек бокса
-                //var radio ='x';
-                //('#XorO').append("Click_ID="+clickId+"; Val="+val+": Radio="+radio);// Проверка данных
+                var XorO=$("input[name='XorO']:checked").val();
+                $('#XorO').append("Click_ID="+clickID+"; Val="+val+": XorO="+XorO);// Проверка данных
                 alert("Hoora1");// тестовый
-                if (!(val == "X") && !(val == "O")) {// блок если уже выставлен х или о
-                    //ajaxComputerTurnRequest(filmName); // будет реализована функция делающая ПОСТ
+                if (!(val == "X") && !(val == "O")&&XorO.length>0) {// блок если уже выставлен х или о
+                    var name_input = document.getElementById(clickID);
+                    name_input.innerText=XorO;
+                    //$("div#"+clickID).val(val);
+                    //ajaxComputerTurnRequest(); // будет реализована функция делающая ПОСТ
                     alert("Hoora2");
                 }
                 ;
 
             });
         });
-        /*function ajaxFilmRequest(term){ TODO функционал
+        /*function ajaxComputerTurnRequest(term){ TODO функционал
          $.ajax({
          type: 'POST',
          url: 'http://localhost:8081/loading',
@@ -62,30 +65,30 @@ Hello ${Nick}
 
         <caption>TIC-TAC-TOE</caption>
 
-        <tr>
-            <td class="space" id="1x1" align="center">${board[0][0]}</td>
-            <td class="space" id="1x2" align="center">${board[0][1]}</td>
-            <td class="space" id="1x3" align="center">${board[0][2]}</td>
+        <tr width="100" height="100">
+            <td class="space" id="1x1" align="center" width="100" height="100">${board[0][0]}</td>
+            <td class="space" id="1x2" align="center" width="100" height="100">${board[0][1]}</td>
+            <td class="space" id="1x3" align="center" width="100" height="100">${board[0][2]}</td>
         </tr>
 
-        <tr>
-            <td class="space" id="2x1" align="center">${board[1][0]}</td>
-            <td class="space" id="2x2" align="center">${board[1][1]}</td>
-            <td class="space" id="2x3" align="center">${board[1][2]}</td>
+        <tr width="100" height="100">
+            <td class="space" id="2x1" align="center" width="100" height="100">${board[1][0]}</td>
+            <td class="space" id="2x2" align="center" width="100" height="100">${board[1][1]}</td>
+            <td class="space" id="2x3" align="center" width="100" height="100">${board[1][2]}</td>
         </tr>
 
-        <tr>
-            <td class="space" id="3x1" align="center">${board[2][0]}</td>
-            <td class="space" id="3x2" align="center">${board[2][1]}</td>
-            <td class="space" id="3x3" align="center">${board[2][2]}</td>
+        <tr width="100" height="100">
+            <td class="space" id="3x1" align="center" width="100">${board[2][0]}</td>
+            <td class="space" id="3x2" align="center" width="100">${board[2][1]}</td>
+            <td class="space" id="3x3" align="center" width="100">${board[2][2]}</td>
         </tr>
 
     </table>
 </font>
 <div>
     Choose your side:<br>
-    <input type="radio" name="group1" value="X"> X<br>
-    <input type="radio" name="group1" value="O"> O
+    <input type="radio" name="XorO" value="X"> X<br>
+    <input type="radio" name="XorO" value="O"> O
 </div>
 </body>
 
