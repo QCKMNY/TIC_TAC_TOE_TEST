@@ -55,7 +55,7 @@ public class tabl {
         char[][] playBoard = Players.get(Nick);
         int i = cellID.charAt(0);
         int j = cellID.charAt(2);
-        playBoard[i][j]=XorO;//TODO проверка на не пустую ячейку-> exception
+        playBoard[i][j]=XorO;//TODO проверка на не пустую ячейку-> exception/
     }
 
 
