@@ -1,6 +1,5 @@
 package com.springapp.mvc;
 
-import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,50 +10,57 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Mary on 24.10.2016.
+ * method getname create user if necessary and starts the game
+ * method printWelcome open the user validation form
  */
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value = "/")
 public class ListenerController {
     @Autowired
-    tabl tablica;//TODO bean tabl; interface?
-    //tabl Tablica TODO add var+ make bin
+    tabl tablica;//TODO bean tabl interface?
 
-    @RequestMapping(value="/loading", method = RequestMethod.GET)
-    public String getname(@RequestParam String Nick, ModelMap model) {
-        char [][] tablica_play=tablica.Players.get(Nick);// TODO COOKIE
-        if (tablica_play!=null){
 
-        }
-        else {
+    @RequestMapping(value = "/loading", method = RequestMethod.GET)
+    public String getName(@RequestParam String Nick, ModelMap model) {
+        char[][] playBoard = tablica.Players.get(Nick);// TODO COOKIE
+        if (playBoard == null) { // проверяет есть ли такой пользователь, если нет-добавляет
             tablica.addPlayer(Nick);
-            tablica_play=tablica.Players.get(Nick);
+            playBoard = tablica.Players.get(Nick);
         }
-        model.addAttribute("board",tablica_play);
+        for (int i=0;i<3;i++){
+            for (int j=0;j<3;j++){
+                //if (playBoard[i][j] == null]){
+
+                //}
+            }
+        }
+        model.addAttribute("board", playBoard);
         model.addAttribute("Nick", Nick);
         return "tic_tac_toe";
     }
-    /*public String getname(@RequestParam String name, ModelMap model) {
-        String out= "Hello ";
-        if (name!=null&&name.length()>0)
-            out+=name+"!";
-        else out+="world!";
-        model.addAttribute("message", out);
-        return "hello";
-    }
-    */
+
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome( ModelMap model) {
+    public String printWelcome(ModelMap model) {
+        //TODO check Cookie- else-> return"tic_tac_toe"
         return "login";
     }
+
+  /*  @RequestMapping(method = RequestMethod.POST)
+    public String enemyTurn(@RequestParam String field,@RequestParam char ticOrTac, ModelMap model){
+        if (ticOrTac=='x'){
+
+        }
+        else if (ticOrTac=='o'){
+
+        }
+        else
+
+        return "tic_tac_toe"; //TODO not new page?
+    }
+*/
     /*@RequestMapping(method = RequestMethod.GET)
     public String printWelcome(@CookieValue(value="tabl_tic_tac_toe", defaultValue =  {"dfs","dfs"}) String [] tabl, ModelMap model) {
         return "tic_tac_toe";
     }
     */
-    @RequestMapping(value="/loading", method = RequestMethod.POST)
-    public String printWelcome(@RequestParam char ticOrTac,@RequestParam String position, ModelMap model) {//TODO ticortac in tabl; disable param checkbox
-        //model.addAttribute("message", );--????
-        return "login";
-    }
-
 }

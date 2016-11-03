@@ -10,22 +10,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                $('#play').click(function(){
-                    var Nick = $("#PlayerNick").val();
-                    if(Nick.length > 0){
-                        var url = "http://localhost:8080/loading?Nick="+Nick;
-                        $(location).attr('href',url);
-                    }
-                    else{
-                        alert("Enter your Nickname");
-                    }
-                });
+    <script>
+        $(document).ready(function () {
+            $('#play').click(function () {
+                var Nick = $("#PlayerNick").val();
+                if (Nick.length > 0) {
+                    var url = "/loading?Nick=" + Nick;
+                    $(location).attr('href', url);
+                }
+                else {
+                    alert("Enter your Nickname");
+                }
             });
-        </script>
+        });
+    </script>
 
     <title>TIC_TAC_TOE_LOGIN</title>
 </head>
