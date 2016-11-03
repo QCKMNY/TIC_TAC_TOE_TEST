@@ -16,36 +16,34 @@
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
-                //var radio = findSelection("group1");// значение чек бокса
-                var XorO=$("input[name='XorO']:checked").val();
+                var XorO=$("input[name='XorO']:checked").val();// значение чек бокса
                 $('#XorO').append("Click_ID="+clickID+"; Val="+val+": XorO="+XorO);// Проверка данных
                 alert("Hoora1");// тестовый
-                if (!(val == "X") && !(val == "O")&&XorO.length>0) {// блок если уже выставлен х или о
+                if (!(val == "X") && !(val == "O")&&XorO.length>0) {// блок если еще не выставлен х или о
                     var name_input = document.getElementById(clickID);
-                    name_input.innerText=XorO;
-                    //$("div#"+clickID).val(val);
-                    //ajaxComputerTurnRequest(); // будет реализована функция делающая ПОСТ
+                    name_input.innerText=XorO;//замена содержимого таблицы
                     alert("Hoora2");
+                    ajaxComputerTurnRequest(clickID,XorO); // будет реализована функция делающая ПОСТ
+                    alert(document.location.href);
                 }
                 ;
 
             });
         });
-        /*function ajaxComputerTurnRequest(term){ TODO функционал
-         $.ajax({
-         type: 'POST',
-         url: 'http://localhost:8081/loading',
-         data: {'field': clickId,'type':radio},
-         success: function(data){
+        function ajaxComputerTurnRequest(clickID,XorO) { //TODO функционал
+            alert("Hoora3");
+            $.ajax({
+                        type: 'POST',
+                        url: document.location.href,
+                        data: {'field': clickID, 'type': XorO},
+                        success: function (data) {
 
-         }
-         }
-         else
-         {
-         alert(":(")
-         }
-         }
-         */
+                        }
+                    }
+            );
+        }
+
+
         //
 
 

@@ -1,12 +1,10 @@
 package com.springapp.mvc;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Mary on 24.10.2016.
@@ -27,8 +25,8 @@ public class ListenerController {
             tablica.addPlayer(Nick);
             playBoard = tablica.Players.get(Nick);
         }
-        for (int i=0;i<3;i++){
-            for (int j=0;j<3;j++){
+        for (int i=0;i<tablica.boardSize;i++){
+            for (int j=0;j<tablica.boardSize;j++){
                 //if (playBoard[i][j] == null]){
 
                 //}
@@ -45,19 +43,18 @@ public class ListenerController {
         return "login";
     }
 
-  /*  @RequestMapping(method = RequestMethod.POST)
-    public String enemyTurn(@RequestParam String field,@RequestParam char ticOrTac, ModelMap model){
-        if (ticOrTac=='x'){
 
-        }
-        else if (ticOrTac=='o'){
-
-        }
-        else
-
-        return "tic_tac_toe"; //TODO not new page?
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public String enemyTurn(@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO, ModelMap model){
+        JSONObject resultJson = new JSONObject();
+        tablica.PlayerStep(nick,XorO,cell);
+        String computerStepID=tablica.ComputerStep(nick,XorO);
+        resultJson.put("ID",computerStepID);
+        resultJson.put("XorO",XorO);
+        return resultJson; //TODO not new page?
     }
-*/
+
     /*@RequestMapping(method = RequestMethod.GET)
     public String printWelcome(@CookieValue(value="tabl_tic_tac_toe", defaultValue =  {"dfs","dfs"}) String [] tabl, ModelMap model) {
         return "tic_tac_toe";
