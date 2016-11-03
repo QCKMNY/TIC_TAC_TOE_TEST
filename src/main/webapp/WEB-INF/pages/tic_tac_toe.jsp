@@ -14,6 +14,7 @@
     <script>
         $(document).ready(function () {
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
+                var Nick=Nick;//TODO make Cookie
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
                 var XorO=$("input[name='XorO']:checked").val();// значение чек бокса
@@ -23,19 +24,19 @@
                     var name_input = document.getElementById(clickID);
                     name_input.innerText=XorO;//замена содержимого таблицы
                     alert("Hoora2");
-                    ajaxComputerTurnRequest(clickID,XorO); // будет реализована функция делающая ПОСТ
-                    alert(document.location.href);
+                    ajaxComputerTurnRequest(Nick,clickID,XorO); // будет реализована функция делающая ПОСТ
+                    alert(document.location.pathname);
                 }
                 ;
 
             });
         });
-        function ajaxComputerTurnRequest(clickID,XorO) { //TODO функционал
+        function ajaxComputerTurnRequest(Nick,clickID,XorO) { //TODO функционал
             alert("Hoora3");
             $.ajax({
                         type: 'POST',
-                        url: document.location.href,
-                        data: {'field': clickID, 'type': XorO},
+                        url: document.location.pathname,
+                        data: {'nick': Nick,'field': clickID, 'type': XorO},
                         success: function (data) {
 
                         }
