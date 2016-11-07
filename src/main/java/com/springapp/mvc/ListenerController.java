@@ -45,7 +45,7 @@ public class ListenerController {
 
     @ResponseBody
     @RequestMapping(value = "/loading",method = RequestMethod.POST)
-    public JSONObject enemyTurn(@RequestParam JSONObject data, ModelMap model){
+    public JSONObject enemyTurn(@RequestParam JSONObject step, ModelMap model){
         //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
         //tablica.PlayerStep(data.nick,data.XorO,data.cell);

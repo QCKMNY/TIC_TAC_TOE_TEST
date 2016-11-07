@@ -26,7 +26,7 @@
                     name_input.innerText = XorO;//замена содержимого таблицы
                     console.log("Hoora2");
                     ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
-                    console.log(document.location.pathname);
+                    console.log(document.location.pathname);//check
                 }
                 ;
 
