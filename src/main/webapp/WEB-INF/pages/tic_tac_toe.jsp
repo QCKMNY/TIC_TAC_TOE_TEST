@@ -14,41 +14,43 @@
     <script>
         $(document).ready(function () {
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
-                var Nick = Nick;//TODO make Cookie
+                var Nick = $('#Nickname').text();//TODO make Cookie
+                console.log(Nick);
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
-                $('#Steps').append("My Step: Click_ID=" + clickID + "; Val=" + val + ": XorO=" + XorO);// Проверка данных
-                alert("Hoora1");// тестовый
+                console.log("Hoora1");// тестовый
                 if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
+                    $('#Steps').append("My Step: Click_ID=" + clickID + "; Val=" + val + ": XorO=" + XorO);// Проверка данных
                     var name_input = document.getElementById(clickID);
                     name_input.innerText = XorO;//замена содержимого таблицы
-                    alert("Hoora2");
+                    console.log("Hoora2");
                     ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
-                    alert(document.location.pathname);
+                    console.log(document.location.pathname);
                 }
                 ;
 
             });
         });
         function ajaxComputerTurnRequest(Nick, clickID, XorO) { //TODO функционал
-            alert("Hoora3");
-            var step ={'nick': Nick, 'field': clickID, 'type': XorO}
+
+            var step= {'nick': Nick, 'field': clickID, 'type': XorO} ;
+            console.log(step);
             $.ajax({
                         type: 'POST',
                         url: document.location.pathname,
                         dataType: 'json',
                         data: step,
-                        success: function (data) {
+                        success: function (step) {
+                            console.log(step);
                             //var obj = jQuery.parseJSON( data.resultJSON )
                             /*if(data.ID !== null && data.XorO !== null){
                                 if (!(val == "X") && !(val == "O")) {// блок если еще не выставлен х или о
                                     var name_input = document.getElementById(data.ID);
                                     name_input.innerText = data.XorO;//замена содержимого таблицы
-                                    alert("Hoora2");
-                                    ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
-                                    alert(document.location.pathname);
-                                }
+                                    $('#Steps').append("Computer Step: Click_ID=" + data.clickID +  ": XorO=" + data.XorO);// Проверка данных
+
+                             }
                             }
                             */
                         }
@@ -67,7 +69,7 @@
 </head>
 
 <body>
-Hello ${Nick}
+Hello <div id="Nickname">${Nick}</div>
 <font size="4">
     <table border="4" bordercolor="#000000" cellspacing="0" cellpadding="0"
            width="300" height="300">

@@ -43,15 +43,15 @@ public class ListenerController {
         return "login";
     }
 
-
-    @RequestMapping(value = "/loading",method = RequestMethod.POST)
     @ResponseBody
-    public Object enemyTurn(@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO, ModelMap model){
+    @RequestMapping(value = "/loading",method = RequestMethod.POST)
+    public JSONObject enemyTurn(@RequestParam JSONObject data, ModelMap model){
+        //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
-        tablica.PlayerStep(nick,XorO,cell);
-        String computerStepID=tablica.ComputerStep(nick,XorO);
-        resultJson.put("ID",computerStepID);
-        resultJson.put("XorO",XorO);
+        //tablica.PlayerStep(data.nick,data.XorO,data.cell);
+        //String computerStepID=tablica.ComputerStep(nick,XorO);
+        //resultJson.put("ID",computerStepID);
+        //resultJson.put("XorO",XorO);
         return resultJson; //TODO not new page?
     }
 
