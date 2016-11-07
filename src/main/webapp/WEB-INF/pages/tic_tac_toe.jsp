@@ -14,30 +14,43 @@
     <script>
         $(document).ready(function () {
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
+                var Nick = Nick;//TODO make Cookie
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
-                var XorO=$("input[name='XorO']:checked").val();// значение чек бокса
-                $('#XorO').append("Click_ID="+clickID+"; Val="+val+": XorO="+XorO);// Проверка данных
+                var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
+                $('#Steps').append("My Step: Click_ID=" + clickID + "; Val=" + val + ": XorO=" + XorO);// Проверка данных
                 alert("Hoora1");// тестовый
-                if (!(val == "X") && !(val == "O")&&XorO.length>0) {// блок если еще не выставлен х или о
+                if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
                     var name_input = document.getElementById(clickID);
-                    name_input.innerText=XorO;//замена содержимого таблицы
+                    name_input.innerText = XorO;//замена содержимого таблицы
                     alert("Hoora2");
-                    ajaxComputerTurnRequest(clickID,XorO); // будет реализована функция делающая ПОСТ
-                    alert(document.location.href);
+                    ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
+                    alert(document.location.pathname);
                 }
                 ;
 
             });
         });
-        function ajaxComputerTurnRequest(clickID,XorO) { //TODO функционал
+        function ajaxComputerTurnRequest(Nick, clickID, XorO) { //TODO функционал
             alert("Hoora3");
+            var step ={'nick': Nick, 'field': clickID, 'type': XorO}
             $.ajax({
                         type: 'POST',
-                        url: document.location.href,
-                        data: {'field': clickID, 'type': XorO},
+                        url: document.location.pathname,
+                        dataType: 'json',
+                        data: step,
                         success: function (data) {
-
+                            //var obj = jQuery.parseJSON( data.resultJSON )
+                            /*if(data.ID !== null && data.XorO !== null){
+                                if (!(val == "X") && !(val == "O")) {// блок если еще не выставлен х или о
+                                    var name_input = document.getElementById(data.ID);
+                                    name_input.innerText = data.XorO;//замена содержимого таблицы
+                                    alert("Hoora2");
+                                    ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
+                                    alert(document.location.pathname);
+                                }
+                            }
+                            */
                         }
                     }
             );
@@ -55,8 +68,6 @@
 
 <body>
 Hello ${Nick}
-<div id="XorO">
-</div>
 <font size="4">
     <table border="4" bordercolor="#000000" cellspacing="0" cellpadding="0"
            width="300" height="300">
@@ -88,6 +99,10 @@ Hello ${Nick}
     <input type="radio" name="XorO" value="X"> X<br>
     <input type="radio" name="XorO" value="O"> O
 </div>
+
+<div id="Steps">
+</div>
+
 </body>
 
 </html>

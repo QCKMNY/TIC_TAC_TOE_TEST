@@ -44,9 +44,9 @@ public class ListenerController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/loading",method = RequestMethod.POST)
     @ResponseBody
-    public String enemyTurn(@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO, ModelMap model){
+    public Object enemyTurn(@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO, ModelMap model){
         JSONObject resultJson = new JSONObject();
         tablica.PlayerStep(nick,XorO,cell);
         String computerStepID=tablica.ComputerStep(nick,XorO);
