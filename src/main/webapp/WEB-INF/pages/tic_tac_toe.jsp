@@ -39,10 +39,10 @@
             $.ajax({
                         type: 'POST',
                         url: document.location.pathname,
-                        dataType: 'json',
-                        data: step,
-                        success: function (step) {
-                            console.log(step);
+                        data: {'nick': Nick, 'field': clickID, 'type': XorO},
+                        success: function (data) {
+                            console.log("success")
+                            //console.log(step);
                             //var obj = jQuery.parseJSON( data.resultJSON )
                             /*if(data.ID !== null && data.XorO !== null){
                                 if (!(val == "X") && !(val == "O")) {// блок если еще не выставлен х или о

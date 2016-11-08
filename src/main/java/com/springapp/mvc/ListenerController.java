@@ -43,16 +43,20 @@ public class ListenerController {
         return "login";
     }
 
+
     @ResponseBody
     @RequestMapping(value = "/loading",method = RequestMethod.POST)
-    public JSONObject enemyTurn(@RequestParam JSONObject step, ModelMap model){
-        //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
-        JSONObject resultJson = new JSONObject();
+    public String enemyTurn(@RequestParam(value = "nick") String nick,@RequestParam(value = "field") String field,
+                            @RequestParam(value = "type") char type,  ModelMap model){
+            //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
+        //JSONObject resultJson = new JSONObject();
         //tablica.PlayerStep(data.nick,data.XorO,data.cell);
         //String computerStepID=tablica.ComputerStep(nick,XorO);
         //resultJson.put("ID",computerStepID);
         //resultJson.put("XorO",XorO);
-        return resultJson; //TODO not new page?
+        //return resultJson; //TODO not new page?
+        String ans= nick+field+type;
+        return ans;
     }
 
     /*@RequestMapping(method = RequestMethod.GET)
