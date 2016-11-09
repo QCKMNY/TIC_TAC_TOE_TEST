@@ -15,19 +15,15 @@
         $(document).ready(function () {
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
                 var Nick = $('#Nickname').text();//TODO make Cookie
-                console.log(Nick);
                 var clickID = this.id; // получаем ид ячейки
-                console.log(clickID);
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
-                console.log("Hoora1");// тестовый
                 if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
-                    $('#Steps').append("My Step: Click_ID=" + clickID + "; Val=" + val + ": XorO=" + XorO);// Проверка данных
+                    $('#PlayerSteps').append("My Step: Click_ID="
+                                                + clickID + "; Val=" + val + ": XorO=" + XorO+"<br>");// Проверка данных
                     var name_input = document.getElementById(clickID);
                     name_input.innerText = XorO;//замена содержимого таблицы
-                    console.log("Hoora2");
-                    ajaxComputerTurnRequest(Nick, clickID, XorO); // будет реализована функция делающая ПОСТ
-                    console.log(document.location.pathname);//check
+                    ajaxComputerTurnRequest(Nick, clickID, XorO); // функция ПОСТ
                 }
                 ;
 
@@ -43,24 +39,12 @@
                             //dataType: 'json',
                             data: step,
                             success: function (json_response) {
-                                console.log("Success");
-                                console.log(json_response);
                                 var response = jQuery.parseJSON(json_response);
-                                console.log("Success1");
                                 if (response.ID !== null && response.compXorO !== null) {
-                                    console.log("Success2");
-                                    console.log(response.compXorO);
-                                    console.log(response.ID);
-                                    var name_input = document.getElementById("'" + response.ID + "'");
-                                    console.log(name_input + "!");
-                                    name_input.innerText = response.compXorO
-                                    if (!(response.compXorO === "X") && !(response.compXorO === "O")) {// блок если еще не выставлен х или о
-                                        console.log("Success3");
-                                        var name_input = document.getElementById(response.ID);
-                                        name_input.innerText = response.XorO;//замена содержимого таблицы
-                                        $('#Steps').append("Computer Step: Click_ID=" + data.clickID + ": XorO=" + data.XorO);// Проверка данных
-
-                                    }
+                                    var name_input = document.getElementById(response.ID);
+                                    name_input.innerText = response.compXorO;
+                                    $('#ComputerSteps').append("Click_ID=" + response.ID +
+                                                                    ": XorO=" + response.compXorO+"<br>");
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
@@ -112,11 +96,21 @@ Hello
 </font>
 <div>
     Choose your side:<br>
-    <input type="radio" name="XorO" value="X"> X<br>
-    <input type="radio" name="XorO" value="O"> O
+    <input class="radio" type="radio" name="XorO" value="X"> X<br>
+    <input class="radio" type="radio" name="XorO" value="O"> O<br>
 </div>
 
 <div id="Steps">
+    <table border="0" width="600">
+        <tr width="600">
+            <td class="space" align="left" width="300">Player Steps<br></td>
+            <td class="space" align="left" width="300">ComputerSteps<br></td>
+        </tr>
+        <tr width="600">
+            <td class="space" id="PlayerSteps" align="left" width="300"><br></td>
+            <td class="space" id="ComputerSteps" align="left" width="300"><br></td>
+        </tr>
+    </table>
 </div>
 
 </body>

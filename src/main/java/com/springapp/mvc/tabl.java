@@ -53,7 +53,7 @@ public class tabl {
                 else if (XorO == 'O')
                     playBoard[i][j] = 'X';
                 possibleStep = true;
-                cellID = i + "x" + j;
+                cellID = (i+1) + "x" + (j+1);
             }
         } while (!possibleStep);
 
