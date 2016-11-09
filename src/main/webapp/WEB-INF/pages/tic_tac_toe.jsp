@@ -17,6 +17,7 @@
                 var Nick = $('#Nickname').text();//TODO make Cookie
                 console.log(Nick);
                 var clickID = this.id; // получаем ид ячейки
+                console.log(clickID);
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
                 console.log("Hoora1");// тестовый
@@ -31,32 +32,44 @@
                 ;
 
             });
-        });
-        function ajaxComputerTurnRequest(Nick, clickID, XorO) { //TODO функционал
 
-            var step= {'nick': Nick, 'field': clickID, 'type': XorO} ;
-            console.log(step);
-            $.ajax({
-                        type: 'POST',
-                        url: document.location.pathname,
-                        dataType: 'json',
-                        data: step,
-                        success: function (step) {
-                            console.log(step);
-                            //var obj = jQuery.parseJSON( data.resultJSON )
-                            /*if(data.ID !== null && data.XorO !== null){
-                                if (!(val == "X") && !(val == "O")) {// блок если еще не выставлен х или о
-                                    var name_input = document.getElementById(data.ID);
-                                    name_input.innerText = data.XorO;//замена содержимого таблицы
-                                    $('#Steps').append("Computer Step: Click_ID=" + data.clickID +  ": XorO=" + data.XorO);// Проверка данных
+            function ajaxComputerTurnRequest(Nick, clickID, XorO) { //TODO функционал
 
-                             }
+                var step = {'nick': Nick, 'field': clickID, 'type': XorO};
+                console.log(step);
+                $.ajax({
+                            type: 'POST',
+                            url: document.location.pathname,
+                            //dataType: 'json',
+                            data: step,
+                            success: function (json_response) {
+                                console.log("Success");
+                                console.log(json_response);
+                                var response = jQuery.parseJSON(json_response);
+                                console.log("Success1");
+                                if (response.ID !== null && response.compXorO !== null) {
+                                    console.log("Success2");
+                                    console.log(response.compXorO);
+                                    console.log(response.ID);
+                                    var name_input = document.getElementById("'" + response.ID + "'");
+                                    console.log(name_input + "!");
+                                    name_input.innerText = response.compXorO
+                                    if (!(response.compXorO === "X") && !(response.compXorO === "O")) {// блок если еще не выставлен х или о
+                                        console.log("Success3");
+                                        var name_input = document.getElementById(response.ID);
+                                        name_input.innerText = response.XorO;//замена содержимого таблицы
+                                        $('#Steps').append("Computer Step: Click_ID=" + data.clickID + ": XorO=" + data.XorO);// Проверка данных
+
+                                    }
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
                             }
-                            */
                         }
-                    }
-            );
-        }
+                );
+            }
+        });
 
 
         //
@@ -69,7 +82,8 @@
 </head>
 
 <body>
-Hello <div id="Nickname">${Nick}</div>
+Hello
+<div id="Nickname">${Nick}</div>
 <font size="4">
     <table border="4" bordercolor="#000000" cellspacing="0" cellpadding="0"
            width="300" height="300">

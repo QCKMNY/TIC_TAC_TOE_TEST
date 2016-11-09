@@ -2,6 +2,7 @@ package com.springapp.mvc;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class ListenerController {
             tablica.addPlayer(Nick);
             playBoard = tablica.Players.get(Nick);
         }
-        for (int i=0;i<tablica.boardSize;i++){
-            for (int j=0;j<tablica.boardSize;j++){
+        for (int i = 0; i < tablica.boardSize; i++) {
+            for (int j = 0; j < tablica.boardSize; j++) {
                 //if (playBoard[i][j] == null]){
 
                 //}
@@ -43,16 +44,26 @@ public class ListenerController {
         return "login";
     }
 
+
+    @RequestMapping(value = "/loading", method = RequestMethod.POST)
+    public
     @ResponseBody
-    @RequestMapping(value = "/loading",method = RequestMethod.POST)
-    public JSONObject enemyTurn(@RequestParam JSONObject step, ModelMap model){
+    String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
+                     @RequestParam(value = "type") char XorO) {
         //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
-        //tablica.PlayerStep(data.nick,data.XorO,data.cell);
-        //String computerStepID=tablica.ComputerStep(nick,XorO);
-        //resultJson.put("ID",computerStepID);
-        //resultJson.put("XorO",XorO);
-        return resultJson; //TODO not new page?
+        tablica.PlayerStep(nick, XorO, cell);
+        String computerStepID = tablica.ComputerStep(nick, XorO);
+        resultJson.put("ID", computerStepID);
+
+        if (XorO == 'X')
+            XorO = 'O';
+        else if (XorO == 'O')
+            XorO = 'X';
+
+        String SXorO = "" + XorO;// для создания Json в формате поддерживаемом jQuery.parseJSON
+        resultJson.put("compXorO", SXorO);
+        return resultJson.toJSONString(); //TODO not new page?
     }
 
     /*@RequestMapping(method = RequestMethod.GET)

@@ -24,7 +24,8 @@ public class tabl {
         if (player.equals("Alex")) {
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    t[i][j] = 'X';
+                    if (j == 0) t[i][j] = 'X';
+                    else t[i][j] = ' ';
                 }
             }
         } else {
@@ -44,8 +45,13 @@ public class tabl {
         do {
             int i = rnd.nextInt(boardSize);
             int j = rnd.nextInt(boardSize);
-            int cell = playBoard[i][j];
-            if (!(cell == 'X') && !(cell == 'O')) {  //if cell in gameboard empty do:
+            char cell = playBoard[i][j];
+
+            if (cell != 'X' && cell != 'O') {
+                if (XorO == 'X')
+                    playBoard[i][j] = 'O';
+                else if (XorO == 'O')
+                    playBoard[i][j] = 'X';
                 possibleStep = true;
                 cellID = i + "x" + j;
             }
@@ -56,9 +62,14 @@ public class tabl {
 
     public void PlayerStep(String Nick, char XorO, String cellID) {
         char[][] playBoard = Players.get(Nick);
-        int i = cellID.charAt(0);
-        int j = cellID.charAt(2);
-        playBoard[i][j] = XorO;//TODO проверка на не пустую ячейку-> exception/
+        int i = Character.getNumericValue(cellID.charAt(0));
+        //int i = cellID.charAt(0);
+        int j = Character.getNumericValue(cellID.charAt(2));
+        char curval = playBoard[i - 1][j - 1];
+        if (curval == ' ') {
+            playBoard[i - 1][j - 1] = XorO;
+        }
+        //TODO проверка на не пустую ячейку-> exception/
     }
 
 
