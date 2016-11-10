@@ -41,20 +41,22 @@
             });
 
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
-                $('.hide').each(function () {
-                    console.log(this);
-                    $(this).hide(); // скрываем элемент
-                });
+
                 var Nick = $('#Nickname').text();//TODO make Cookie
+                var click=$(this);
+                console.log(this);
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
                 $('#RadioChoise').html("You are " + XorO);
                 if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
+                    $('.hide').each(function () {
+                        console.log(this);
+                        $(this).hide(); // скрываем элемент
+                    });
                     $('#PlayerSteps').append("My Step: Click_ID="
                             + clickID + "; Val=" + val + ": XorO=" + XorO + "<br>");// Проверка данных
-                    var name_input = document.getElementById(clickID);
-                    name_input.innerText = XorO;//замена содержимого таблицы
+                    click.html(XorO);//замена содержимого таблицы
                     ajaxComputerTurnRequest(Nick, clickID, XorO); // функция ПОСТ
                 }
                 ;
@@ -72,12 +74,14 @@
                             data: step,
                             success: function (json_response) {
                                 var response = jQuery.parseJSON(json_response);
-                                if (response.ID !== null && response.compXorO !== null) {
-                                    var name_input = document.getElementById(response.ID);
-                                    name_input.innerText = response.compXorO;
-                                    $('#ComputerSteps').append("Click_ID=" + response.ID +
-                                            ": XorO=" + response.compXorO + "<br>");
+                                if (response.ID&& response.compXorO) {
+                                    if (response.ID !== null && response.compXorO !== null) {
+                                        $('#'+response.ID).html(response.compXorO)
+                                        $('#ComputerSteps').append("Click_ID=" + response.ID +
+                                                ": XorO=" + response.compXorO + "<br>");
+                                    }
                                 }
+                                else {alert("Bad Move!")}
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 console.log(textStatus, errorThrown);

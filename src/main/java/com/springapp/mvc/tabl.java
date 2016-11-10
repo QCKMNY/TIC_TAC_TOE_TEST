@@ -56,7 +56,8 @@ public class tabl {
         return cellID;
     }
 
-    public void PlayerStep(String Nick, char XorO, String cellID) {
+    public boolean PlayerStep(String Nick, char XorO, String cellID) {
+        boolean possibleStep=false;
         char[][] playBoard = Players.get(Nick);
         int i = Character.getNumericValue(cellID.charAt(0));
         //int i = cellID.charAt(0);
@@ -64,7 +65,9 @@ public class tabl {
         char curval = playBoard[i - 1][j - 1];
         if (curval == ' ') {
             playBoard[i - 1][j - 1] = XorO;
+            possibleStep=true;
         }
+        return possibleStep;
         //TODO проверка на не пустую ячейку-> exception/
     }
 

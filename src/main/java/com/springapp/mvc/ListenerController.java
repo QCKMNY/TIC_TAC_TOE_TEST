@@ -44,17 +44,18 @@ public class ListenerController {
                      @RequestParam(value = "type") char XorO) {
         //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
-        tablica.PlayerStep(nick, XorO, cell);
-        String computerStepID = tablica.ComputerStep(nick, XorO);
-        resultJson.put("ID", computerStepID);
+        String computerStepID="";
+        if(tablica.PlayerStep(nick, XorO, cell)) {
+            computerStepID = tablica.ComputerStep(nick, XorO);
+            resultJson.put("ID", computerStepID);
 
-        if (XorO == 'X')
-            XorO = 'O';
-        else if (XorO == 'O')
-            XorO = 'X';
+            if (XorO == 'X') XorO = 'O';//switch to computer
+            else if (XorO == 'O') XorO = 'X';
 
-        String SXorO = "" + XorO;// для создания Json в формате поддерживаемом jQuery.parseJSON
-        resultJson.put("compXorO", SXorO);
+            String SXorO = "" + XorO;// для создания Json в формате поддерживаемом jQuery.parseJSON
+            resultJson.put("compXorO", SXorO);
+        }
+
         return resultJson.toJSONString(); //TODO not new page?
     }
 
