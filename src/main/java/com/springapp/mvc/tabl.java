@@ -19,23 +19,19 @@ public class tabl {
         Players = new HashMap<String, char[][]>();//TODO from file reading?
     }
 
-    public void addPlayer(String player) {
+    public void addPlayer(String nick) {
+        Players.put(nick, null);
+        newGame(nick);
+    }
+
+    public void newGame(String nick){
         char[][] t = new char[boardSize][boardSize];
-        if (player.equals("Alex")) {
-            for (int i = 0; i < boardSize; i++) {
-                for (int j = 0; j < boardSize; j++) {
-                    if (j == 0) t[i][j] = 'X';
-                    else t[i][j] = ' ';
-                }
-            }
-        } else {
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
                     t[i][j] = ' ';
                 }
             }
-        }
-        Players.put(player, t);
+        Players.put(nick,t);
     }
 
     public String ComputerStep(String Nick, char XorO) {

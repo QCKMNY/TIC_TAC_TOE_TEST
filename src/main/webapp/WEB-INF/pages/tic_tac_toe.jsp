@@ -13,7 +13,29 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <script>
         $(document).ready(function () {
+
+            $('#newGame').click(function(){
+                var Nick=$('#Nickname').text();
+                $.ajax({
+                            type: 'POST',
+                            url: document.location.pathname+"/new",
+                            //dataType: 'json',
+                            data: {'nick': Nick},
+                            success: function (json_response) {
+                                $('.space').each(function(){
+                                    this.innerText = ' ';//замена содержимого таблицы
+                                });
+                                },
+
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        }
+                );
+            });
+
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
+
                 var Nick = $('#Nickname').text();//TODO make Cookie
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
@@ -54,12 +76,9 @@
                 );
             }
         });
-
-
-        //
-
-
     </script>
+
+
 
     <title>TIC-TAC-TOE</title>
 
@@ -99,12 +118,15 @@ Hello
     <input class="radio" type="radio" name="XorO" value="X"> X<br>
     <input class="radio" type="radio" name="XorO" value="O"> O<br>
 </div>
+<div>
+ <input class="button" type="button" id="newGame" value="New Game"> X<br>
+</div>
 
 <div id="Steps">
     <table border="0" width="600">
         <tr width="600">
-            <td class="space" align="left" width="300">Player Steps<br></td>
-            <td class="space" align="left" width="300">ComputerSteps<br></td>
+            <td  align="left" width="300">Player Steps<br></td>
+            <td  align="left" width="300">Computer Steps<br></td>
         </tr>
         <tr width="600">
             <td class="space" id="PlayerSteps" align="left" width="300"><br></td>

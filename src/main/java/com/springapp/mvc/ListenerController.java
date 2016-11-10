@@ -23,15 +23,8 @@ public class ListenerController {
     public String getName(@RequestParam String Nick, ModelMap model) {
         char[][] playBoard = tablica.Players.get(Nick);// TODO COOKIE
         if (playBoard == null) { // проверяет есть ли такой пользователь, если нет-добавляет
-            tablica.addPlayer(Nick);
+            tablica.newGame(Nick);
             playBoard = tablica.Players.get(Nick);
-        }
-        for (int i = 0; i < tablica.boardSize; i++) {
-            for (int j = 0; j < tablica.boardSize; j++) {
-                //if (playBoard[i][j] == null]){
-
-                //}
-            }
         }
         model.addAttribute("board", playBoard);
         model.addAttribute("Nick", Nick);
@@ -46,10 +39,8 @@ public class ListenerController {
 
 
     @RequestMapping(value = "/loading", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
-                     @RequestParam(value = "type") char XorO) {
+    public@ResponseBody String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
+                                                @RequestParam(value = "type") char XorO) {
         //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
         tablica.PlayerStep(nick, XorO, cell);
@@ -66,6 +57,13 @@ public class ListenerController {
         return resultJson.toJSONString(); //TODO not new page?
     }
 
+    @RequestMapping(value = "/loading/new", method = RequestMethod.POST)
+    public@ResponseBody String newGame(@RequestParam String nick) {
+        JSONObject resultJson = new JSONObject();
+        tablica.newGame(nick);
+        resultJson.put("response","success");
+        return resultJson.toJSONString(); //TODO not new page?
+    }
     /*@RequestMapping(method = RequestMethod.GET)
     public String printWelcome(@CookieValue(value="tabl_tic_tac_toe", defaultValue =  {"dfs","dfs"}) String [] tabl, ModelMap model) {
         return "tic_tac_toe";
