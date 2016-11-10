@@ -24,14 +24,14 @@ public class tabl {
         newGame(nick);
     }
 
-    public void newGame(String nick){
+    public void newGame(String nick) {
         char[][] t = new char[boardSize][boardSize];
-            for (int i = 0; i < boardSize; i++) {
-                for (int j = 0; j < boardSize; j++) {
-                    t[i][j] = ' ';
-                }
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                t[i][j] = ' ';
             }
-        Players.put(nick,t);
+        }
+        Players.put(nick, t);
     }
 
     public String ComputerStep(String Nick, char XorO) {
@@ -49,7 +49,7 @@ public class tabl {
                 else if (XorO == 'O')
                     playBoard[i][j] = 'X';
                 possibleStep = true;
-                cellID = (i+1) + "x" + (j+1);
+                cellID = (i + 1) + "x" + (j + 1);
             }
         } while (!possibleStep);
 

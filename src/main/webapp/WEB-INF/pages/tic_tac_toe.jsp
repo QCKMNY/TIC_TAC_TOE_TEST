@@ -14,24 +14,24 @@
     <script>
         $(document).ready(function () {
 
-            $('#newGame').click(function(){
-                var Nick=$('#Nickname').text();
+            $('#newGame').click(function () {
+                var Nick = $('#Nickname').text();
 
                 $.ajax({
                             type: 'POST',
-                            url: document.location.pathname+"/new",
+                            url: document.location.pathname + "/new",
                             //dataType: 'json',
                             data: {'nick': Nick},
                             success: function (json_response) {
-                                $('.space').each(function(){
+                                $('.space').each(function () {
                                     this.innerText = ' ';//замена содержимого таблицы
                                 });
-                                $('.hide').each(function(){
+                                $('.hide').each(function () {
                                     console.log(this);
                                     $(this).show(); // раскрываем
                                 });
                                 $('#RadioChoise').html("");
-                                },
+                            },
 
                             error: function (jqXHR, textStatus, errorThrown) {
                                 console.log(textStatus, errorThrown);
@@ -41,7 +41,7 @@
             });
 
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
-                $('.hide').each(function(){
+                $('.hide').each(function () {
                     console.log(this);
                     $(this).hide(); // скрываем элемент
                 });
@@ -49,10 +49,10 @@
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
-                $('#RadioChoise').html("You are "+XorO);
+                $('#RadioChoise').html("You are " + XorO);
                 if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
                     $('#PlayerSteps').append("My Step: Click_ID="
-                                                + clickID + "; Val=" + val + ": XorO=" + XorO+"<br>");// Проверка данных
+                            + clickID + "; Val=" + val + ": XorO=" + XorO + "<br>");// Проверка данных
                     var name_input = document.getElementById(clickID);
                     name_input.innerText = XorO;//замена содержимого таблицы
                     ajaxComputerTurnRequest(Nick, clickID, XorO); // функция ПОСТ
@@ -76,7 +76,7 @@
                                     var name_input = document.getElementById(response.ID);
                                     name_input.innerText = response.compXorO;
                                     $('#ComputerSteps').append("Click_ID=" + response.ID +
-                                                                    ": XorO=" + response.compXorO+"<br>");
+                                            ": XorO=" + response.compXorO + "<br>");
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
@@ -87,7 +87,6 @@
             }
         });
     </script>
-
 
 
     <title>TIC-TAC-TOE</title>
@@ -129,17 +128,17 @@ Hello
     <input class="radio" type="radio" name="XorO" value="O"> O<br>
 </div>
 <div>
- <input class="button" type="button" id="newGame" value="New Game"> <br>
+    <input class="button" type="button" id="newGame" value="New Game"> <br>
 </div>
 
 <div id="Steps">
     <table border="0" width="600">
         <tr width="600">
-            <td id="RadioChoise"  align="left" width=""></td>
+            <td id="RadioChoise" align="left" width=""></td>
         </tr>
         <tr width="600">
-            <td  align="left" width="300">Player Steps<br></td>
-            <td  align="left" width="300">Computer Steps<br></td>
+            <td align="left" width="300">Player Steps<br></td>
+            <td align="left" width="300">Computer Steps<br></td>
         </tr>
         <tr width="600">
             <td class="space" id="PlayerSteps" align="left" width="300" aria-disabled="true"><br></td>

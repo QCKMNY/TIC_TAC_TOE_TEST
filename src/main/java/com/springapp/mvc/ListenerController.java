@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * method getname create user if necessary and starts the game
  * method printWelcome open the user validation form
  */
-@Controller
-@RequestMapping(value = "/")
+@Controller(value = "/")
 public class ListenerController {
     @Autowired
     tabl tablica;//TODO bean tabl interface?
@@ -39,8 +38,10 @@ public class ListenerController {
 
 
     @RequestMapping(value = "/loading", method = RequestMethod.POST)
-    public@ResponseBody String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
-                                                @RequestParam(value = "type") char XorO) {
+    public
+    @ResponseBody
+    String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
+                     @RequestParam(value = "type") char XorO) {
         //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
         tablica.PlayerStep(nick, XorO, cell);
@@ -58,10 +59,12 @@ public class ListenerController {
     }
 
     @RequestMapping(value = "/loading/new", method = RequestMethod.POST)
-    public@ResponseBody String newGame(@RequestParam String nick) {
+    public
+    @ResponseBody
+    String newGame(@RequestParam String nick) {
         JSONObject resultJson = new JSONObject();
         tablica.newGame(nick);
-        resultJson.put("response","success");
+        resultJson.put("response", "success");
         return resultJson.toJSONString(); //TODO not new page?
     }
     /*@RequestMapping(method = RequestMethod.GET)
