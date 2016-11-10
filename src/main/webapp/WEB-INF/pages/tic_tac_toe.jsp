@@ -16,6 +16,7 @@
 
             $('#newGame').click(function(){
                 var Nick=$('#Nickname').text();
+
                 $.ajax({
                             type: 'POST',
                             url: document.location.pathname+"/new",
@@ -25,6 +26,11 @@
                                 $('.space').each(function(){
                                     this.innerText = ' ';//замена содержимого таблицы
                                 });
+                                $('.hide').each(function(){
+                                    console.log(this);
+                                    $(this).show(); // раскрываем
+                                });
+                                $('#RadioChoise').html("");
                                 },
 
                             error: function (jqXHR, textStatus, errorThrown) {
@@ -35,11 +41,15 @@
             });
 
             $(document).on('click', '.space', function () { //функция при нажатии на ячейку
-
+                $('.hide').each(function(){
+                    console.log(this);
+                    $(this).hide(); // скрываем элемент
+                });
                 var Nick = $('#Nickname').text();//TODO make Cookie
                 var clickID = this.id; // получаем ид ячейки
                 var val = $(this).text();//значение ячейки
                 var XorO = $("input[name='XorO']:checked").val();// значение чек бокса
+                $('#RadioChoise').html("You are "+XorO);
                 if (!(val == "X") && !(val == "O") && XorO.length > 0) {// блок если еще не выставлен х или о
                     $('#PlayerSteps').append("My Step: Click_ID="
                                                 + clickID + "; Val=" + val + ": XorO=" + XorO+"<br>");// Проверка данных
@@ -113,24 +123,27 @@ Hello
 
     </table>
 </font>
-<div>
+<div class="hide">
     Choose your side:<br>
     <input class="radio" type="radio" name="XorO" value="X"> X<br>
     <input class="radio" type="radio" name="XorO" value="O"> O<br>
 </div>
 <div>
- <input class="button" type="button" id="newGame" value="New Game"> X<br>
+ <input class="button" type="button" id="newGame" value="New Game"> <br>
 </div>
 
 <div id="Steps">
     <table border="0" width="600">
         <tr width="600">
+            <td id="RadioChoise"  align="left" width=""></td>
+        </tr>
+        <tr width="600">
             <td  align="left" width="300">Player Steps<br></td>
             <td  align="left" width="300">Computer Steps<br></td>
         </tr>
         <tr width="600">
-            <td class="space" id="PlayerSteps" align="left" width="300"><br></td>
-            <td class="space" id="ComputerSteps" align="left" width="300"><br></td>
+            <td class="space" id="PlayerSteps" align="left" width="300" aria-disabled="true"><br></td>
+            <td class="space" id="ComputerSteps" align="left" width="300" aria-disabled="true"><br></td>
         </tr>
     </table>
 </div>
