@@ -15,16 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller(value = "/")
 public class ListenerController {
     @Autowired
-    tabl tablica;//TODO bean tabl interface?
-
+    //tabl tablica;//TODO bean tabl interface?
+            Player tablica;
 
     @RequestMapping(value = "/loading", method = RequestMethod.GET)
     public String getName(@RequestParam String Nick, ModelMap model) {
-        char[][] playBoard = tablica.Players.get(Nick);// TODO COOKIE
-        if (playBoard == null) { // проверяет есть ли такой пользователь, если нет-добавляет
-            tablica.newGame(Nick);
-            playBoard = tablica.Players.get(Nick);
-        }
+        char[][] playBoard = tablica.GetBoard(Nick);// TODO COOKIE
         model.addAttribute("board", playBoard);
         model.addAttribute("Nick", Nick);
         return "tic_tac_toe";
@@ -42,18 +38,14 @@ public class ListenerController {
     @ResponseBody
     String enemyTurn(@RequestParam String nick, @RequestParam(value = "field") String cell,
                      @RequestParam(value = "type") char XorO) {
-        //@RequestParam String nick,@RequestParam String cell,@RequestParam char XorO,//  предыдущие перемменные
         JSONObject resultJson = new JSONObject();
-        String computerStepID="";
-        if(tablica.PlayerStep(nick, XorO, cell)) {
-            computerStepID = tablica.ComputerStep(nick, XorO);
+        if (tablica.PlayerStep(nick, XorO, cell)) {
+
+            String computerStepID = tablica.ComputerStep(nick, XorO);
             resultJson.put("ID", computerStepID);
 
-            if (XorO == 'X') XorO = 'O';//switch to computer
-            else if (XorO == 'O') XorO = 'X';
-
-            String SXorO = "" + XorO;// для создания Json в формате поддерживаемом jQuery.parseJSON
-            resultJson.put("compXorO", SXorO);
+            XorO = tablica.Switch(XorO);
+            resultJson.put("compXorO", "" + XorO);// "" + XorO; для совместиости toJSONString() с jQuery.parseJSON
         }
 
         return resultJson.toJSONString(); //TODO not new page?
@@ -68,9 +60,6 @@ public class ListenerController {
         resultJson.put("response", "success");
         return resultJson.toJSONString(); //TODO not new page?
     }
-    /*@RequestMapping(method = RequestMethod.GET)
-    public String printWelcome(@CookieValue(value="tabl_tic_tac_toe", defaultValue =  {"dfs","dfs"}) String [] tabl, ModelMap model) {
-        return "tic_tac_toe";
-    }
-    */
 }
+
+
